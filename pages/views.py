@@ -337,6 +337,9 @@ class Database:
 
 
 db = Database()
+st.set_option('deprecation.showPyplotGlobalUse', False)
+
+
 
 st.markdown("<h2 style='color: green;'>Views</h2>", unsafe_allow_html=True)
 # show Loyal_customer view 
@@ -347,3 +350,11 @@ df
 st.markdown("<h3 style='color: blue;'>Daily Sales</h3>", unsafe_allow_html=True)
 df = db.query("SELECT * FROM Daily_Sell")
 df
+
+#plot the daily sales
+st.markdown("<h3 style='color: blue;'>Daily Sales Plot</h3>", unsafe_allow_html=True)
+df = db.query("SELECT * FROM Daily_Sell")
+df['date'] = pd.to_datetime(df['date'])
+df.set_index('date',inplace=True)
+df['Daily_Sell'].plot()
+st.pyplot()
