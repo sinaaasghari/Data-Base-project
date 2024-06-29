@@ -346,10 +346,10 @@ with col2:
     type = st.selectbox("type", ['Main','Drink','Dessert'])
 
 with col3:
-    remaining = st.number_input("remaining", value=0, step=1, format='%d')
+    remaining = st.number_input("remaining", value=None, step=1, format='%d')
 
 with col4:
-    price = st.number_input("price", value=0, step=1, format='%d')
+    price = st.number_input("price", value=None, step=1, format='%d')
 
 if st.button("add"):
     db.modify_food('add', Name, type , remaining , price)
@@ -374,10 +374,10 @@ with col10:
     type = st.selectbox("updated type", ['Main','Drink','Dessert'])
 
 with col11:
-    remaining = st.number_input("updated remaining", value=0, step=1, format='%d')
+    remaining = st.number_input("updated remaining", value=None, step=1, format='%d')
 
 with col12:
-    price = st.number_input("updated price", value=0, step=1, format='%d')
+    price = st.number_input("updated price", value=None, step=1, format='%d')
 
 if st.button("update"):
     db.modify_food('update', Name, type , remaining , price)

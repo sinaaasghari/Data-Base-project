@@ -68,7 +68,7 @@ class Database:
                 return
             
             try:
-                query = f"INSERT INTO [Table] (id,capacity) VALUES ({id},{capacity},'{status}')"
+                query = f"INSERT INTO [Table] (id,capacity,status) VALUES ({id},{capacity},'{status}')"
                 self.execute(query)
                 print('Table added successfully')
             except Exception as e:
@@ -116,7 +116,7 @@ class Database:
 db = Database()
 
 
-st.markdown("<h2 style='color: green;'>Orders management</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='color: green;'>Tables management</h2>", unsafe_allow_html=True)
 
 
 col1, col2, col3 = st.columns(3)
@@ -139,7 +139,7 @@ st.markdown("---")
 col4, col5, col6 = st.columns(3)
 
 with col4:
-    number = st.text_input("Number Table")
+    number = st.text_input(" Table Number ")
 if st.button("remove"):
     db.modify_table('remove',number)
 

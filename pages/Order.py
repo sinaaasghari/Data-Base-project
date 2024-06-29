@@ -125,13 +125,15 @@ class Database:
 
 db = Database()
 
+st.markdown("<h2 style='color: green;'>Orders management</h2>", unsafe_allow_html=True)
+
 col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
 
 with col1:
-    phone = st.text_input("Phone")
+    customer_id = st.text_input("customer_id")
 
 with col2:
-    food = st.text_input("Food")
+    menu_id = st.text_input("menu_id")
 
 with col3:
     status = st.selectbox("Status", ['Pending', 'Done'])
@@ -140,21 +142,14 @@ with col4:
     order_type = st.selectbox("Type", ['TakeAway', 'DineIn'])
 
 with col5:
-    table_id = st.number_input("Table", value=0, step=1, format='%d')
+    table_id = st.number_input("Table", value=None, step=1, format='%d')
 
 with col6:
-    employee_id = st.number_input("Employee",  value=0, step=1, format='%d')
+    employee_id = st.number_input("Employee",  value=None, step=1, format='%d')
 
 with col7:
     date = st.date_input("Date")
 
-if phone:
-    df = db.query(f"SELECT id FROM Customer WHERE phone = '{phone}'")
-    customer_id = df['id'].to_list() if not df.empty else None
-
-if food:
-    df = db.query(f"SELECT id FROM Menu WHERE name = '{food}'")
-    menu_id = df['id'].to_list() if not df.empty else None
 
 if st.button("add"):
     if customer_id and menu_id:
@@ -175,34 +170,27 @@ col15, col16, col17, col18, col19, col20, col21, col22 = st.columns(8)
 with col15:
     id = st.text_input("order Id")
 with col16:
-    phone = st.text_input("new phone")
+    customer_id = st.text_input("new C_id")
 
 with col17:
-    food = st.text_input("new Food")
+    menu_id = st.text_input("new M_id")
 
 with col18:
     status = st.selectbox("new Status", ['Pending', 'Done'])
 
 with col19:
-    order_type = st.selectbox("new Type", ['TakeAway', 'DineIn'])
+    order_type = st.selectbox("new Type", ['TakeAway', 'DineIn'] )
 
 with col20:
-    table_id = st.number_input("new Table", value=0, step=1, format='%d')
+    table_id = st.number_input("new Table", value=None, step=1, format='%d')
 
 with col21:
-    employee_id = st.number_input("Nemployee", value=0, step=1, format='%d')
+    employee_id = st.number_input("New Emp", value=None, step=1, format='%d')
 
 with col22:
     date = st.date_input("new Date")
 
 
-if phone:
-    df = db.query(f"SELECT id FROM Customer WHERE phone = '{phone}'")
-    customer_id = df['id'].to_list() if not df.empty else None
-
-if food:
-    df = db.query(f"SELECT id FROM Menu WHERE name = '{food}'")
-    menu_id = df['id'].to_list() if not df.empty else None
 
 if st.button("update"):
     if customer_id and menu_id:

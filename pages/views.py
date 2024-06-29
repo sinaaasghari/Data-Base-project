@@ -2,13 +2,14 @@ import streamlit as st
 import pandas as pd
 import pyodbc
 import numpy as np
+from typing import Literal , Optional
 
 server = 'SHAD\SQLEXPRESS'
 database = 'resturant'
 username = ''  # Only if using SQL Server Authentication
 password = ''  # Only if using SQL Server Authentication
 
-from typing import Literal , Optional
+
 
 class Database:
 
@@ -130,7 +131,8 @@ class Database:
                 return
             
             try:
-                query = f"INSERT INTO Customer (name,phone) VALUES ('{name}','{phone}')"
+                query = f"INSERT INTO Customer ([name],phone) VALUES ('{name}','{phone}')"
+                print(query)
                 # print(query)
                 self.execute(query)
                 print('customer added successfully')
@@ -333,62 +335,15 @@ class Database:
     def __del__(self):
         self.conn.close()
 
+
 db = Database()
 
-st.markdown("<h2 style='color: green;'>Employee information management</h2>", unsafe_allow_html=True)
-
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    ssn = st.text_input("ssn")
-
-with col2:
-    Name = st.text_input("Name")
-   
-with col3:
-    role = st.selectbox("role", ['Chef','Waiter','Seller','Manager'])
-
-with col4:
-    date = st.date_input("date")
-
-
-if st.button("add"):
-    db.modify_Employee('add',ssn , Name, role , date)
-
-st.markdown("---")
-
-col5, col6, col7, col8 = st.columns(4)
-with col5:
-    ssn = st.text_input("employee's ssn")
-
-if st.button("remove"):
-    db.modify_Employee('remove',ssn)
-
-st.markdown("---")
-
-col9, col10, col11, col12 = st.columns(4)
-
-with col9:
-    ssn = st.text_input("Employee ssn")
-
-with col10:
-    Name = st.text_input("updated Name")
-   
-with col11:
-    role = st.selectbox("updated role", ['Chef','Waiter','Seller','Manager'])
-
-with col12:
-    date = st.date_input("updated date")
-
-
-if st.button("update"):
-    db.modify_Employee('update',ssn , Name, role , date)
-
-a = db.show_tables('Employee')
-
-st.markdown("---")
-
-if st.button('Show Employee Table'):
-    df = db.query("SELECT * FROM Employee")
-    st.write(df)
-
+st.markdown("<h2 style='color: green;'>Views</h2>", unsafe_allow_html=True)
+# show Loyal_customer view 
+st.markdown("<h3 style='color: blue;'>Loyal Customers</h3>", unsafe_allow_html=True)
+df = db.query("SELECT * FROM Loyal_Customers")
+df
+# show daily_sales view
+st.markdown("<h3 style='color: blue;'>Daily Sales</h3>", unsafe_allow_html=True)
+df = db.query("SELECT * FROM Daily_Sell")
+df
